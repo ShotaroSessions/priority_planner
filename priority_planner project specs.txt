@@ -1,0 +1,50 @@
+priority_planner Project Specifications:
+
+A web app for prioritizing and planning lifelong and everyday goals.
+Breaks larger goals up into smaller subgoals and tracks your progress 
+throughout. Choose days you aim to complete certain goals at and check 
+them off when finished or get a reminder if you haven't. Keeps track 
+of completed goals in text files representing all events that happened 
+while working toward completion. Goals can have a set progression to
+completion or be dynamic. Daily and upcoming goals are displayed at 
+the top of the web app on a bar with the link to the dashboard.
+
+Objects:
+
+    GOALS
+
+Goals are plans. They can be empty when representing smaller tasks 
+that can be completed quickly. Goals can be nested in other goals. 
+Goals with subgoals have an option to keep track of progress with a 
+percentage of subgoals finished and/or progress bar. Goals can be put
+in color coded categories. 
+
+
+    GOALS - DATA
+
+Title: Title of goal (what is most often displayed)
+Description: More detailed description (optional)
+Date: Date of Completion (None) if not
+Category: Inherited from parent goal if applicable
+
+
+    UPDATES
+
+Updates are notes that can be added to the timeline of a goal. They can
+contain text and files
+
+    UPDATES - DATA
+
+Title: Title update (what is most often displayed)
+Description: The note
+Date: Date created
+Category: Inherited from parent goal
+
+
+Pages:
+
+    DASHBOARD
+
+The dashboard is where you can keep track of all goals. Goals will be
+by default displayed with one layer of subgoals but subgoals can be 
+expanded to see subgoals and updates within
