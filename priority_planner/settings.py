@@ -31,8 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    
-
+    # My apps
+    'priority_planners',
 
     # RGB Color Field
     'colorful',
