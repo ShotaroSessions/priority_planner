@@ -12,6 +12,10 @@ class Goal(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     date_completed = None
 
+    def __str__(self):
+        """Return a string representation of the model"""
+        return self.title
+
 
 class Update(models.Model):
     """A note regarding a specific goal."""
