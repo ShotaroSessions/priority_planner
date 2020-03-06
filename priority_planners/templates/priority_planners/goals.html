@@ -1,0 +1,15 @@
+{% extends "priority_planners/base.html" %}
+
+{% block content %}
+
+    <p>Goals</p>
+
+    <ul>
+        {% for goal in goals %}
+            <li>{{ goal }}</li>
+        {% empty %}
+            <li>No goals have been added yet</li>
+        {% endfor %}
+    </ul>
+
+{% endblock content %}
