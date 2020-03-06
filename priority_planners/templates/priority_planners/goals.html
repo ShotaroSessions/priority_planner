@@ -5,10 +5,19 @@
     <p>Goals</p>
 
     <ul>
-        {% for goal in goals %}
+        {% for goal, updates in goals %}
             <li>{{ goal }}</li>
+            {% for update in updates %}
+                <p>{{ update.date_added|date:'M d, Y H:i' }} {{ update }}</p>
+            {% endfor %}
         {% empty %}
             <li>No goals have been added yet</li>
+        {% endfor %}
+        {% for goal, updates in finished %}
+            <li>{{ goal }}</li>
+            {% for update in updates %}
+                <p>{{ update.date_added|date:'M d, Y H:i' }} {{ update }}</p>
+            {% endfor %}
         {% endfor %}
     </ul>
 
