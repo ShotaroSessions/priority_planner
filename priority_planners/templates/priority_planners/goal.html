@@ -1,0 +1,15 @@
+{% extends 'priority_planners/base.html' %}
+
+{% block content %}
+
+    <p>Goal: {{ goal }}
+        {% if goal.date_completed is not None %} Finished: {{ goal.date_completed|date:'M d, Y H:i' }}}{% endif %}
+    </p>
+    <p>{{ goal.text }}</p>
+    <ul>
+        {% for update in updates %}
+        <li>{{ update.date_added|date:'M d, Y H:i' }} {{ update }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock content %}

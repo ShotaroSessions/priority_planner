@@ -14,8 +14,9 @@ def goals(request):
     finished = [goal for goal in Goal.objects.order_by('date_added') if goal.date_completed is not None]
 
     goal_updates = [goal.update_set.order_by('-date_added') for goal in goal_list]
-    goals_and_updates = []
     finished_updates = [goal.update_set.order_by('-date_added') for goal in finished]
+
+    goals_and_updates = []
     finished_and_updates = []
 
     # Iterate through the goals and updates lists simultaneously
@@ -26,3 +27,11 @@ def goals(request):
 
     context = {'goals': goals_and_updates, 'finished': finished_and_updates}
     return render(request, 'priority_planners/goals.html', context)
+
+
+def goal(request, goal_id):
+    """Show a single goal and it's updates"""
+    goal = Goal.objects.get(id=goal_id)
+    updates = goal.update_set.order_by('-date_added')
+    context = {'goal': goal, 'updates': updates}
+    return render(request, 'priority_planners/goal.html', context)

@@ -10,4 +10,8 @@ urlpatterns= [
     path('', views.index, name='index'),
     # Page that shows all goals.
     path('goals/', views.goals, name='goals'),
+    # Page that details a goal
+    path('goals/<int:goal_id>/', views.goal, name='goal'),
+    # Page that details an update
+    #path('updates/<int:update_id>/', views.update, name='update'),
 ]
