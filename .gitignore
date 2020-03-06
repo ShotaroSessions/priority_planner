@@ -4,8 +4,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 =======
+
 #VIRTUAL ENVIRONMENT
 pp_env/
+
+#MIGRATION FILES
+migrations/
 
 
 # Byte-compiled / optimized / DLL files
