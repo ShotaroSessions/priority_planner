@@ -35,3 +35,10 @@ def goal(request, goal_id):
     updates = goal.update_set.order_by('-date_added')
     context = {'goal': goal, 'updates': updates}
     return render(request, 'priority_planners/goal.html', context)
+
+
+def update(request, update_id):
+    """Show a single update and it's text"""
+    update = Update.objects.get(id=update_id)
+    context = {'update': update}
+    return render(request, 'priority_planners/update.html', context)

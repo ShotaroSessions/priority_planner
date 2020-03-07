@@ -13,5 +13,5 @@ urlpatterns= [
     # Page that details a goal
     path('goals/<int:goal_id>/', views.goal, name='goal'),
     # Page that details an update
-    #path('updates/<int:update_id>/', views.update, name='update'),
+    path('updates/<int:update_id>/', views.update, name='update'),
 ]
