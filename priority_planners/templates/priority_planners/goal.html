@@ -8,7 +8,10 @@
     <p>{{ goal.text }}</p>
     <ul>
         {% for update in updates %}
-        <li>{{ update.date_added|date:'M d, Y H:i' }} {{ update }}</li>
+        <li>
+            {{ update.date_added|date:'M d, Y' }}:
+            <a href="{% url 'priority_planners:update' update.id %}">{{ update }}</a>
+        </li>
         {% endfor %}
     </ul>
 

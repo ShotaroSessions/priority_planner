@@ -2,13 +2,15 @@
 
 {% block content %}
 
-    <p>Goals</p>
+    <p>Goals:</p>
 
     <ul>
         {% for goal, updates in goals %}
             <a href="{% url 'priority_planners:goal' goal.id %}">{{ goal }}</a>
             {% for update in updates %}
-                <p>{{ update.date_added|date:'M d, Y H:i' }} {{ update }}</p>
+                <li><p>{{ update.date_added|date:'M d, Y' }}:
+                    <a href="{% url 'priority_planners:update' update.id %}">{{ update }}</a>
+                </li></p>
             {% endfor %}
         {% empty %}
             <li>No goals have been added yet</li>
@@ -16,7 +18,9 @@
         {% for goal, updates in finished %}
             <a href="{% url 'priority_planners:goal' goal.id %}">{{ goal }}</a>
             {% for update in updates %}
-                <p>{{ update.date_added|date:'M d, Y H:i' }} {{ update }}</p>
+                <li><p>{{ update.date_added|date:'M d, Y' }}:
+                    <a href="{% url 'priority_planners:update' update.id %}">{{ update }}</a>
+                </li></p>
             {% endfor %}
         {% endfor %}
     </ul>
