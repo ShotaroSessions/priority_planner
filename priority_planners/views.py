@@ -10,11 +10,14 @@ def index(request):
 
 def goals(request):
     """Show all goals."""
-    goal_list = [goal for goal in Goal.objects.order_by('date_added') if goal.date_completed is None]
-    finished = [goal for goal in Goal.objects.order_by('date_added') if goal.date_completed is not None]
+    goals_all = Goal.objects.order_by('date_added')
+    goal_list = [goal for goal in goals_all if goal.date_completed is None]
+    finished = [goal for goal in goals_all if goal.date_completed is not None]
 
-    goal_updates = [goal.update_set.order_by('-date_added') for goal in goal_list]
-    finished_updates = [goal.update_set.order_by('-date_added') for goal in finished]
+    goal_updates = [goal.update_set.order_by('-date_added')
+                    for goal in goal_list]
+    finished_updates = [goal.update_set.order_by('-date_added')
+                        for goal in finished]
 
     goals_and_updates = []
     finished_and_updates = []
