@@ -1,0 +1,13 @@
+{% extends "priority_planners/base.html" %}
+
+{% block content %}
+
+    <p>Add a new goal:</p>
+
+    <form action="{% url 'priority_planners:new_goal' %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">Add goal</button>
+    </form>
+
+{% endblock content %}

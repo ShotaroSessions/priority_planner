@@ -14,4 +14,6 @@ urlpatterns= [
     path('goals/<int:goal_id>/', views.goal, name='goal'),
     # Page that details an update
     path('updates/<int:update_id>/', views.update, name='update'),
+    # Page for adding a new goal
+    path('new_goal/', views.new_goal, name='new_goal'),
 ]
