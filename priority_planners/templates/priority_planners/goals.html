@@ -4,6 +4,8 @@
 
     <p>Goals:</p>
 
+    <a href="{% url 'priority_planners:new_goal' %}">Add a new goal</a>
+
     <ul>
         {% for goal, updates in goals %}
             <a href="{% url 'priority_planners:goal' goal.id %}">{{ goal }}</a>
