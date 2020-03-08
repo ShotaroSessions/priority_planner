@@ -11,4 +11,9 @@ class GoalForm(forms.ModelForm):
         widgets = {'text': forms.Textarea(attrs={'cols': 80})}
 
 
-
+class UpdateForm(forms.ModelForm):
+    class Meta:
+        model = Update
+        fields = ['title', 'text']
+        labels = {'title': '', 'text': ''}
+        widgets = {'text': forms.Textarea(attrs={'cols': 80})}
