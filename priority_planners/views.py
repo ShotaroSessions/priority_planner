@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from .models import Goal, Update
-from .forms import GoalForm
+from .forms import GoalForm, UpdateForm
 
 def index(request):
     """The home page for Priority Planner."""
@@ -43,18 +43,40 @@ def update(request, update_id):
     context = {'update': update}
     return render(request, 'priority_planners/update.html', context)
 
+
 def new_goal(request):
     """Add a new goal."""
     if request.method != 'POST':
         # No data submitted; create a blank form.
         form = GoalForm()
     else:
-        # POST data submitted; process data
+        # POST data submitted; process data.
         form = GoalForm(data=request.POST)
         if form.is_valid():
             form.save()
             return redirect('priority_planners:goals')
 
-    # Display a blank or invalid form
+    # Display a blank or invalid form.
     context = {'form': form}
     return render(request, 'priority_planners/new_goal.html', context)
+
+
+def new_update(request, goal_id):
+    """ Add a new update for a particular goal"""
+    goal = Goal.objects.get(id=goal_id)
+
+    if request.method != 'POST':
+        # No data submitted; create a blank form.
+        form = UpdateForm()
+    else:
+        # POST data submitted; process data.
+        form = UpdateForm(data=request.POST)
+        if form.is_valid():
+            new_update = form.save(commit=False)
+            new_update.goal = goal
+            new_update.save()
+            return redirect('priority_planners:goal', goal_id=goal_id)
+
+    # Display a blank or invalid form
+    context = {'goal': goal, 'form': form}
+    return render(request, 'priority_planners/new_update.html', context)
