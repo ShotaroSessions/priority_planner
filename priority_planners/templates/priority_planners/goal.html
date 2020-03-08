@@ -6,6 +6,10 @@
         {% if goal.date_completed is not None %} Finished: {{ goal.date_completed|date:'M d, Y H:i' }}}{% endif %}
     </p>
     <p>{{ goal.text }}</p>
+    <p>Updates:</p>
+    <p>
+        <a href="{% url 'priority_planners:new_update' goal.id %}">Add new update</a>
+    </p>
     <ul>
         {% for update in updates %}
         <li>
