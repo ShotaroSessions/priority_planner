@@ -1,8 +1,10 @@
 {% extends 'priority_planners/base.html' %}
 
 {% block content %}
+
     <p>Goal: <a href="{% url 'priority_planners:goal' update.parent.id %}">{{ update.parent.text }}</a></p>
     <p>{{ update.date_added|date:'M d, Y' }}:  {{ update }}</p>
     <p>{{ update.text }}</p>
+    <p><a href="{% url 'priority_planners:edit_update' update.id %}">Edit update</a></p>
 
 {% endblock content %}
