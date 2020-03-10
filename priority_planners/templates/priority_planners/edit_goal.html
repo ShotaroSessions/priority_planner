@@ -1,0 +1,14 @@
+{% extends "priority_planners/base.html" %}
+
+{% block content %}
+
+    <p><a href="{% url 'priority_planners:goal' goal.id %}">{{ goal }}</a></p>
+    <p>Edit goal:</p>
+
+    <form action="{% url 'priority_planners:edit_goal' goal.id %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">Save changes</button>
+    </form>
+
+{% endblock content %}
