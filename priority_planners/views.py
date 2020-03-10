@@ -1,17 +1,21 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.http import Http404
 
 from .models import Goal, Update
 from .forms import GoalForm, UpdateForm
+
 
 def index(request):
     """The home page for Priority Planner."""
     return render(request, 'priority_planners/index.html')
 
 
+@login_required
 def goals(request):
     """Show all goals with their updates."""
-    goals_all = Goal.objects.order_by('date_added')
+    goals_all = Goal.objects.filter(owner=request.user).order_by('date_added')
     goal_list = [goal for goal in goals_all if goal.completed is False]
     finished = [goal for goal in goals_all if goal.completed is True]
 
@@ -30,21 +34,30 @@ def goals(request):
     return render(request, 'priority_planners/goals.html', context)
 
 
+@login_required
 def goal(request, goal_id):
     """Show a single goal and it's updates"""
     goal = Goal.objects.get(id=goal_id)
+    # Make sure the goal belongs to the current user.
+    if goal.owner != request.user:
+        raise Http404
+
     updates = goal.update_set.order_by('-date_added')
     context = {'goal': goal, 'updates': updates}
     return render(request, 'priority_planners/goal.html', context)
 
 
+@login_required
 def update(request, update_id):
     """Show a single update and it's text"""
     update = Update.objects.get(id=update_id)
+    if update.parent.owner != request.user:
+        raise Http404
     context = {'update': update}
     return render(request, 'priority_planners/update.html', context)
 
 
+@login_required
 def new_goal(request):
     """Add a new goal."""
     if request.method != 'POST':
@@ -54,7 +67,9 @@ def new_goal(request):
         # POST data submitted; process data.
         form = GoalForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            new_goal = form.save(commit=False)
+            new_goal.owner = request.user
+            new_goal.save()
             return redirect('priority_planners:goals')
 
     # Display a blank or invalid form.
@@ -62,6 +77,7 @@ def new_goal(request):
     return render(request, 'priority_planners/new_goal.html', context)
 
 
+@login_required
 def new_update(request, goal_id):
     """ Add a new update for a particular goal"""
     goal = Goal.objects.get(id=goal_id)
@@ -83,6 +99,7 @@ def new_update(request, goal_id):
     return render(request, 'priority_planners/new_update.html', context)
 
 
+@login_required
 def edit_goal(request, goal_id):
     """Edit an existing goal"""
     goal = Goal.objects.get(id=goal_id)
@@ -101,6 +118,7 @@ def edit_goal(request, goal_id):
     return render(request, 'priority_planners/edit_goal.html', context)
 
 
+@login_required
 def edit_update(request, update_id):
     """Edit an existing update"""
     update = Update.objects.get(id=update_id)
@@ -119,6 +137,7 @@ def edit_update(request, update_id):
     return render(request, 'priority_planners/edit_update.html', context)
 
 
+@login_required
 def delete_goal(request, goal_id):
     goal = Goal.objects.get(id=goal_id)
     if request.method == 'POST':
@@ -131,6 +150,7 @@ def delete_goal(request, goal_id):
     return render(request, 'priority_planners/delete_goal.html', context)
 
 
+@login_required
 def delete_update(request, update_id):
     update = Update.objects.get(id=update_id)
     if request.method == 'POST':
@@ -143,6 +163,7 @@ def delete_update(request, update_id):
     return render(request, 'priority_planners/delete_update.html', context)
 
 
+@login_required
 def finish_goal(request, goal_id):
     goal = Goal.objects.get(id=goal_id)
     if request.method == 'POST':
