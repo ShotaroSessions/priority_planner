@@ -20,7 +20,7 @@ urlpatterns= [
     # Page for adding a new update
     path('new_update/<int:goal_id>/', views.new_update, name='new_update'),
     # Page for editing an goal
-    path('edit_goal/<int:goal_id>/', views.edit_goal, name='edit_goal()'),
+    path('edit_goal/<int:goal_id>/', views.edit_goal, name='edit_goal'),
     # Path for editing an update
-    path('edit_update/<int:update_id>/', views.edit_update, name='edit_update()'),
+    # path('edit_update/<int:update_id>/', views.edit_update, name='edit_update()'),
 ]

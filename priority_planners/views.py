@@ -80,3 +80,21 @@ def new_update(request, goal_id):
     # Display a blank or invalid form
     context = {'goal': goal, 'form': form}
     return render(request, 'priority_planners/new_update.html', context)
+
+
+def edit_goal(request, goal_id):
+    """Edit an existing goal"""
+    goal = Goal.objects.get(id=goal_id)
+
+    if request.method != 'POST':
+        # Initial request; pre-fill form with the current goal.
+        form = GoalForm(instance=goal)
+    else:
+        # Post data submitted; process data.
+        form = GoalForm(instance=goal, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('priority_planners:goal', goal_id=goal.id)
+
+    context = {'goal': goal, 'form': form}
+    return render(request, 'priority_planners/edit_goal.html', context)
