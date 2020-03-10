@@ -98,3 +98,21 @@ def edit_goal(request, goal_id):
 
     context = {'goal': goal, 'form': form}
     return render(request, 'priority_planners/edit_goal.html', context)
+
+
+def edit_update(request, update_id):
+    """Edit an existing update"""
+    update = Update.objects.get(id=update_id)
+
+    if request.method != 'POST':
+        # Initial request; pre-fill form with the current update.
+        form = UpdateForm(instance=update)
+    else:
+        # Post data submitted; process data.
+        form = UpdateForm(instance=update, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('priority_planners:update', update_id=update.id)
+
+    context = {'update': update, 'form': form}
+    return render(request, 'priority_planners/edit_update.html', context)
