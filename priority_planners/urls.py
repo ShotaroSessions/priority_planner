@@ -27,5 +27,7 @@ urlpatterns= [
     path('delete_goal/<int:goal_id>/', views.delete_goal, name='delete_goal'),
     # Path for deleting an update
     path('delete_update/<int:update_id>/', views.delete_update, name='delete_update'),
+    # Path for finishing a goal
+    path('finish_goal/<int:goal_id>/', views.finish_goal, name='finish_goal'),
 
 ]

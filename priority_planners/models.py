@@ -10,7 +10,8 @@ class Goal(models.Model):
     title = models.CharField(max_length=200)
     text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
-    date_completed = None
+    date_completed = models.DateTimeField(null=True)
+    completed = models.BooleanField(default=False)
 
     def __str__(self):
         """Return a string representation of the model"""

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.utils import timezone
 
 from .models import Goal, Update
 from .forms import GoalForm, UpdateForm
@@ -11,8 +12,8 @@ def index(request):
 def goals(request):
     """Show all goals with their updates."""
     goals_all = Goal.objects.order_by('date_added')
-    goal_list = [goal for goal in goals_all if goal.date_completed is None]
-    finished = [goal for goal in goals_all if goal.date_completed is not None]
+    goal_list = [goal for goal in goals_all if goal.completed is False]
+    finished = [goal for goal in goals_all if goal.completed is True]
 
     goal_updates = [goal.update_set.order_by('-date_added')
                     for goal in goal_list]
@@ -73,7 +74,7 @@ def new_update(request, goal_id):
         form = UpdateForm(data=request.POST)
         if form.is_valid():
             new_update = form.save(commit=False)
-            new_update.goal = goal
+            new_update.parent = goal
             new_update.save()
             return redirect('priority_planners:goal', goal_id=goal_id)
 
@@ -140,3 +141,17 @@ def delete_update(request, update_id):
         "update": update
     }
     return render(request, 'priority_planners/delete_update.html', context)
+
+
+def finish_goal(request, goal_id):
+    goal = Goal.objects.get(id=goal_id)
+    if request.method == 'POST':
+        # confirming finish
+        goal.date_completed = timezone.now()
+        goal.completed = True
+        goal.save()
+        return redirect('priority_planners:goals')
+    context = {
+        "goal": goal
+    }
+    return render(request, 'priority_planners/finish_goal.html', context)
