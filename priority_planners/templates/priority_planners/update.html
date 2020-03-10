@@ -1,13 +1,16 @@
 {% extends 'priority_planners/base.html' %}
 
+{% block page_header %}
+    <h1>Goal: <a href="{% url 'priority_planners:goal' update.parent.id %}">{{ update.parent.text }}</a></h1>
+    <h3><a href="{% url 'priority_planners:edit_update' update.id %}">Edit</a>  -
+        <a href="{% url 'priority_planners:delete_update' update.id %}">Delete</a>
+    </h3>
+{% endblock page_header %}
+
 {% block content %}
 
-    <p>Goal: <a href="{% url 'priority_planners:goal' update.parent.id %}">{{ update.parent.text }}</a></p>
-    <p>{{ update.date_added|date:'M d, Y' }}:  {{ update }}</p>
-    <p>{{ update.text }}</p>
-    <p><a href="{% url 'priority_planners:edit_update' update.id %}">Edit update</a></p>
-    <p>
-        <a href="{% url 'priority_planners:delete_update' update.id %}">Delete update</a>
-    </p>
+    <h2>{{ update.date_added|date:'M d, Y' }}:  {{ update }}</h2>
+    <h5>{{ update.text }}</h5>
+
 
 {% endblock content %}

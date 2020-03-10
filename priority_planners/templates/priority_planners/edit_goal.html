@@ -1,14 +1,19 @@
 {% extends "priority_planners/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h1><a href="{% url 'priority_planners:goal' goal.id %}">{{ goal }}</a></h1>
+    <h2>Edit goal:</h2>
+{% endblock page_header %}
 
 {% block content %}
 
-    <p><a href="{% url 'priority_planners:goal' goal.id %}">{{ goal }}</a></p>
-    <p>Edit goal:</p>
-
     <form action="{% url 'priority_planners:edit_goal' goal.id %}" method='post'>
         {% csrf_token %}
-        {{ form.as_p }}
-        <button name="submit">Save changes</button>
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button name="submit" class="btn btn-primary">Save goal</button>
+        {% endbuttons %}
     </form>
 
 {% endblock content %}

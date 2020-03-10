@@ -1,5 +1,11 @@
 {% extends "priority_planners/base.html" %}
-
-{% block content %}
-    <p>A webapp to keep track of goals.</p>
-{% endblock content %}
+{% block page_header %}
+    <div class="jumbotron">
+    <h1 class="display-3">Prioritize.</h1>
+        <p class="lead">Priority Planner allows you to keep track of goals
+                        and check them off as you get them done. You can append
+                        updates to goals as well to keep track of your progress!</p>
+        <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+            role="button">Register &raquo;</a>
+    </div>
+{% endblock page_header %}

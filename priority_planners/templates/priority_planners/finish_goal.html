@@ -1,11 +1,14 @@
 {% extends "priority_planners/base.html" %}
 
+{% block page_header %}
+    <h1>You're finished with: "{{ goal }}"?</h1>
+{% endblock page_header %}
+
 {% block content %}
 
     <form action="{% url 'priority_planners:finish_goal' goal.id %}" method='POST'>
         {% csrf_token %}
-        <p>You're finished with: "{{ goal }}"?</p>
-        <p><input type='submit' value='Yes' />  <a href="{% url 'priority_planners:goal' goal.id %}">Cancel</a></p>
+        <h4><input type='submit' value='Yes' />  <a href="{% url 'priority_planners:goal' goal.id %}">Cancel</a></h4>
     </form>
 
 {% endblock content %}

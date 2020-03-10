@@ -1,13 +1,17 @@
 {% extends "priority_planners/base.html" %}
+{% load bootstrap4 %}
 
 {% block content %}
 
     <form method="post" action="{% url 'users:register' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button name="submit" class="btn btn-primary">Log in</button>
+        {% endbuttons %}
 
-        <button name="submit">Register</button>
-        <input type="hidden" name="next" value="{% url 'priority_planners:index' %}" />
+        <input type="hidden" name="next"
+           value="{% url 'priority_planners:index' %}" />
     </form>
 
 {% endblock content %}

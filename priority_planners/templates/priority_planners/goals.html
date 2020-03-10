@@ -1,29 +1,34 @@
 {% extends "priority_planners/base.html" %}
 
+{% block page_header %}
+    <h1>Goals</h1>
+{% endblock page_header %}
+
 {% block content %}
 
-    <p>Goals:</p>
-
-    <a href="{% url 'priority_planners:new_goal' %}">Add a new goal</a>
+    <h3><a href="{% url 'priority_planners:new_goal' %}">Add a new goal</a></h3>
 
     <ul>
         {% for goal, updates in goals %}
-            <p><a href="{% url 'priority_planners:goal' goal.id %}">{{ goal }}</a></p>
+            <h3><a href="{% url 'priority_planners:goal' goal.id %}">{{ goal }}</a></h3>
             {% for update in updates %}
-                <li><p>{{ update.date_added|date:'M d, Y' }}:
+                <li><h4>{{ update.date_added|date:'M d, Y' }}:
                     <a href="{% url 'priority_planners:update' update.id %}">{{ update }}</a>
-                </li></p>
+                </h4></li>
             {% endfor %}
         {% empty %}
-            <li>No goals have been added yet</li>
+            <li><h3>No goals have been added yet</h3></li>
         {% endfor %}
-        <p>Finished Goals:</p>
+    </ul>
+    <h3>Finished Goals:</h3>
+    <ul>
         {% for goal, updates in finished %}
-            <p><a href="{% url 'priority_planners:goal' goal.id %}">{{ goal }}</a>  Finished: {{ goal.date_completed|date:'M d, Y' }}</p>
+            <h3><a href="{% url 'priority_planners:goal' goal.id %}">{{ goal }}</a>
+                -    Finished: {{ goal.date_completed|date:'M d, Y' }}</h3>
             {% for update in updates %}
-                <li><p>{{ update.date_added|date:'M d, Y' }}:
+                <li><h4>{{ update.date_added|date:'M d, Y' }}:
                     <a href="{% url 'priority_planners:update' update.id %}">{{ update }}</a>
-                </li></p>
+                </h4></li>
             {% endfor %}
         {% endfor %}
     </ul>
