@@ -91,6 +91,8 @@ def new_update(request, goal_id):
         if form.is_valid():
             new_update = form.save(commit=False)
             new_update.parent = goal
+            if goal.owner != request.user:
+                raise Http404
             new_update.save()
             return redirect('priority_planners:goal', goal_id=goal_id)
 
@@ -139,6 +141,7 @@ def edit_update(request, update_id):
 
 @login_required
 def delete_goal(request, goal_id):
+    """Delete an existing goal"""
     goal = Goal.objects.get(id=goal_id)
     if request.method == 'POST':
         # confirming delete
@@ -152,6 +155,7 @@ def delete_goal(request, goal_id):
 
 @login_required
 def delete_update(request, update_id):
+    """Delete an existing update"""
     update = Update.objects.get(id=update_id)
     if request.method == 'POST':
         # confirming delete
@@ -165,6 +169,7 @@ def delete_update(request, update_id):
 
 @login_required
 def finish_goal(request, goal_id):
+    """Finish an existing goal"""
     goal = Goal.objects.get(id=goal_id)
     if request.method == 'POST':
         # confirming finish
