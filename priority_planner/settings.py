@@ -35,6 +35,9 @@ INSTALLED_APPS = [
     'priority_planners',
     'users',
 
+    # Third party apps.
+    # bootstrap4 for styling pages
+    'bootstrap4',
     # RGB Color Field
     'colorful',
 
