@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # My apps
     'priority_planners',
+    'users',
 
     # RGB Color Field
     'colorful',
