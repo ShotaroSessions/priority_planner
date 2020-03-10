@@ -23,4 +23,9 @@ urlpatterns= [
     path('edit_goal/<int:goal_id>/', views.edit_goal, name='edit_goal'),
     # Path for editing an update
     path('edit_update/<int:update_id>/', views.edit_update, name='edit_update'),
+    # Path for deleting a goal
+    path('delete_goal/<int:goal_id>/', views.delete_goal, name='delete_goal'),
+    # Path for deleting an update
+    path('delete_update/<int:update_id>/', views.delete_update, name='delete_update'),
+
 ]

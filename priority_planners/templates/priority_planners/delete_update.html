@@ -1,0 +1,11 @@
+{% extends "priority_planners/base.html" %}
+
+{% block content %}
+
+    <form action="{% url 'priority_planners:delete_update' update.id %}" method='POST'>
+        {% csrf_token %}
+        <p>Are you sure you want to delete update: "{{ update }}"?</p>
+        <p><input type='submit' value='Yes' />  <a href="{% url 'priority_planners:update' update.id %}">Cancel</a></p>
+    </form>
+
+{% endblock content %}

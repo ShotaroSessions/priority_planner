@@ -116,3 +116,27 @@ def edit_update(request, update_id):
 
     context = {'update': update, 'form': form}
     return render(request, 'priority_planners/edit_update.html', context)
+
+
+def delete_goal(request, goal_id):
+    goal = Goal.objects.get(id=goal_id)
+    if request.method == 'POST':
+        # confirming delete
+        goal.delete()
+        return redirect('priority_planners:goals')
+    context = {
+        "goal": goal
+    }
+    return render(request, 'priority_planners/delete_goal.html', context)
+
+
+def delete_update(request, update_id):
+    update = Update.objects.get(id=update_id)
+    if request.method == 'POST':
+        # confirming delete
+        update.delete()
+        return redirect('priority_planners:goals')
+    context = {
+        "update": update
+    }
+    return render(request, 'priority_planners/delete_update.html', context)

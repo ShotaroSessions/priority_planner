@@ -21,5 +21,8 @@
         </li>
         {% endfor %}
     </ul>
+    <p>
+        <a href="{% url 'priority_planners:delete_goal' goal.id %}">Delete goal</a>
+    </p>
 
 {% endblock content %}

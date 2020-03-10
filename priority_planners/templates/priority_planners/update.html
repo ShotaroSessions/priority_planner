@@ -6,5 +6,8 @@
     <p>{{ update.date_added|date:'M d, Y' }}:  {{ update }}</p>
     <p>{{ update.text }}</p>
     <p><a href="{% url 'priority_planners:edit_update' update.id %}">Edit update</a></p>
+    <p>
+        <a href="{% url 'priority_planners:delete_update' update.id %}">Delete update</a>
+    </p>
 
 {% endblock content %}
