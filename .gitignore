@@ -8,10 +8,6 @@ __pycache__/
 #VIRTUAL ENVIRONMENT
 pp_env/
 
-#MIGRATION FILES
-migrations/
-
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
