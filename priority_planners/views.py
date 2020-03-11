@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.http import Http404
@@ -37,7 +37,7 @@ def goals(request):
 @login_required
 def goal(request, goal_id):
     """Show a single goal and it's updates"""
-    goal = Goal.objects.get(id=goal_id)
+    goal = get_object_or_404(Goal, id=goal_id)
     # Make sure the goal belongs to the current user.
     if goal.owner != request.user:
         raise Http404
@@ -50,7 +50,7 @@ def goal(request, goal_id):
 @login_required
 def update(request, update_id):
     """Show a single update and it's text"""
-    update = Update.objects.get(id=update_id)
+    update = get_object_or_404(Update, id=update_id)
     if update.parent.owner != request.user:
         raise Http404
     context = {'update': update}
@@ -80,7 +80,7 @@ def new_goal(request):
 @login_required
 def new_update(request, goal_id):
     """ Add a new update for a particular goal"""
-    goal = Goal.objects.get(id=goal_id)
+    goal = get_object_or_404(Goal, id=goal_id)
 
     if request.method != 'POST':
         # No data submitted; create a blank form.
@@ -104,7 +104,7 @@ def new_update(request, goal_id):
 @login_required
 def edit_goal(request, goal_id):
     """Edit an existing goal"""
-    goal = Goal.objects.get(id=goal_id)
+    goal = get_object_or_404(Goal, id=goal_id)
 
     if request.method != 'POST':
         # Initial request; pre-fill form with the current goal.
@@ -123,7 +123,7 @@ def edit_goal(request, goal_id):
 @login_required
 def edit_update(request, update_id):
     """Edit an existing update"""
-    update = Update.objects.get(id=update_id)
+    update = get_object_or_404(Update, id=update_id)
 
     if request.method != 'POST':
         # Initial request; pre-fill form with the current update.
@@ -142,7 +142,7 @@ def edit_update(request, update_id):
 @login_required
 def delete_goal(request, goal_id):
     """Delete an existing goal"""
-    goal = Goal.objects.get(id=goal_id)
+    goal = get_object_or_404(Goal, id=goal_id)
     if request.method == 'POST':
         # confirming delete
         goal.delete()
@@ -156,7 +156,7 @@ def delete_goal(request, goal_id):
 @login_required
 def delete_update(request, update_id):
     """Delete an existing update"""
-    update = Update.objects.get(id=update_id)
+    update = get_object_or_404(Update, id=update_id)
     if request.method == 'POST':
         # confirming delete
         update.delete()
@@ -170,7 +170,7 @@ def delete_update(request, update_id):
 @login_required
 def finish_goal(request, goal_id):
     """Finish an existing goal"""
-    goal = Goal.objects.get(id=goal_id)
+    goal = get_object_or_404(Goal, id=goal_id)
     if request.method == 'POST':
         # confirming finish
         goal.date_completed = timezone.now()
