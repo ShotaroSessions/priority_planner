@@ -8,6 +8,7 @@
         <a href="{% url 'priority_planners:finish_goal' goal.id %}">Finish</a>  -
         <a href="{% url 'priority_planners:delete_goal' goal.id %}">Delete</a>
     </h3>
+    <p>{{ goal.text }}</p>
 {% endblock page_header %}
 
 {% block content %}
